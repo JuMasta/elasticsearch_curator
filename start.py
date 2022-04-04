@@ -1,4 +1,4 @@
-from index_сurator import IndexCurator
+from index_curator import IndexCurator
 from document_curator import DocumentCurator
 import sys
 import logging
