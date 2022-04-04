@@ -61,9 +61,9 @@ class IndexCurator(object):
 
     """default 3 days"""
     @delete_indeces_decorator
-    def delete_indices_by_creation_date(self,threshold_time_in_seconds = 259200):
+    def delete_indices_by_creation_date(self, pattern, threshold_time_in_seconds = 259200):
         indices_for_deleting = []
-        indices = self.get_indeces_by_pattern("*")
+        indices = self.get_indeces_by_pattern(pattern)
         for key in indices:
             index_creation_time_in_seconds = int(indices[key]['settings']['index']['creation_date']) / 1000
             if self.is_time_passed(threshold_time_in_seconds, index_creation_time_in_seconds):

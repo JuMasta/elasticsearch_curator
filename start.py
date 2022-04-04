@@ -7,6 +7,7 @@ logging.basicConfig(level=logging.INFO)
 
 threshold_time_in_seconds_arg = 'threshold_time_in_seconds'
 threshold_size_in_bytes_arg = 'threshold_size_in_bytes'
+indices_pattern_list = ['argocd-*','elastic-system-*','monitoring-*','cert-manager-*']
 
 args = {}
 if len(sys.argv) > 1:
@@ -24,9 +25,11 @@ indexCurator = IndexCurator()
 
 if threshold_time_in_seconds_arg in args:
     threshold_time_in_seconds = args[threshold_time_in_seconds_arg]
-    indexCurator.delete_indices_by_creation_date(threshold_time_in_seconds)
+    for indices_pattern in indices_pattern_list:
+        indexCurator.delete_indices_by_creation_date(indices_pattern, threshold_time_in_seconds)
 else:
-    indexCurator.delete_indices_by_creation_date()
+    for indices_pattern in indices_pattern_list:
+        indexCurator.delete_indices_by_creation_date(indices_pattern)
 
 
 if threshold_size_in_bytes_arg in args:
