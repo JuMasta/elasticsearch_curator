@@ -1,7 +1,9 @@
 from index_сurator import IndexCurator
 from document_curator import DocumentCurator
 import sys
+import logging
 
+logging.basicConfig(level=logging.INFO)
 
 threshold_time_in_seconds_arg = 'threshold_time_in_seconds'
 threshold_size_in_bytes_arg = 'threshold_size_in_bytes'
