@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO)
 
 threshold_time_in_seconds_arg = 'threshold_time_in_seconds'
 threshold_size_in_bytes_arg = 'threshold_size_in_bytes'
-indices_pattern_list = ['argocd-*','elastic-system-*','monitoring-*','cert-manager-*']
+indices_pattern_list = ['logstash-*']
 
 args = {}
 if len(sys.argv) > 1:
