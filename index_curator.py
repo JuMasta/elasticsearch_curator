@@ -1,3 +1,4 @@
+from ast import Pass
 import os
 from elasticsearch import Elasticsearch
 from datetime import datetime, timedelta
@@ -46,9 +47,10 @@ class IndexCurator(object):
         def delete_indeces(self, *args, **kwargs):
             indeces_for_deleting = get_indeces_for_deleting(self, *args, **kwargs)
             if len(indeces_for_deleting) > 0:
-                 indices_deleting_str_list = ','.join(indeces_for_deleting)
-                 self.es.indices.delete(index=indices_deleting_str_list)
-                 log.info(indices_deleting_str_list + ': have been deleted')
+                #  indices_deleting_str_list = ','.join(indeces_for_deleting)
+                 for index in indeces_for_deleting:
+                    self.es.indices.delete(index=index)
+                    log.info(index + ': have been deleted')
         return delete_indeces
 
     def is_time_passed(self,threshold_time_in_seconds , compared_time):
@@ -80,5 +82,25 @@ class IndexCurator(object):
         for key in indeces_stats:
             index_size = int(indeces_stats[key]['total']['store']['size_in_bytes'])
             if index_size >= threshold_size_in_bytes:
-                indeces_for_deleting.append(key)
+                indices_for_deleting.append(key)
         return indices_for_deleting
+
+    def split_line_url(self, indices):
+        parts_arr = []
+        parts = int(len(indices)/4096)
+        remainder = len(indices) % 4096
+        current_index = 0
+        for i in range(parts + 1):
+            url_params = ""
+            if i == parts:
+               for x in range(remainder):
+                    url_params += indices[current_index]
+                    current_index += 1
+            else:        
+                for x in range(4096):
+                    url_params += indices[current_index]
+                    current_index += 1
+            parts_arr.append(url_params)
+        log.info(parts_arr + ': parts')    
+        return  parts_arr 
+
