@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
       -
         name: Login to Docker Hub
-        uses: azure/login-action@v1
+        uses: azure/docker-login@v1
         with:
           login-server: 'bulatacr.azurecr.io'
           username: ${{ secrets.ACR_USERNAME }}
