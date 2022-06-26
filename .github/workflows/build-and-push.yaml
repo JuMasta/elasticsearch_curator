@@ -27,4 +27,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.ACR_USERNAME }}/elk-curator:${{github.ref_name}}
+          tags: bulatacr.azurecr.io/elk-curator:${{github.ref_name}}
