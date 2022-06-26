@@ -32,11 +32,11 @@ else:
         indexCurator.delete_indices_by_creation_date(indices_pattern)
 
 
-# if threshold_size_in_bytes_arg in args:
-#     threshold_size_in_bytes = args[threshold_size_in_bytes_arg]
-#     indexCurator.delete_indeces_by_size(threshold_size_in_bytes)
-# else:
-#     indexCurator.delete_indeces_by_size()
+if threshold_size_in_bytes_arg in args:
+    threshold_size_in_bytes = args[threshold_size_in_bytes_arg]
+    indexCurator.delete_indeces_by_size(threshold_size_in_bytes)
+else:
+    indexCurator.delete_indeces_by_size()
 
 
 # documentCurator = DocumentCurator()
