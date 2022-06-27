@@ -2,41 +2,45 @@ from index_curator import IndexCurator
 from document_curator import DocumentCurator
 import sys
 import logging
+import os
 
 logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
 
 threshold_time_in_seconds_arg = 'threshold_time_in_seconds'
 threshold_size_in_bytes_arg = 'threshold_size_in_bytes'
 indices_pattern_list = ['logstash-*']
+ELASTICSEARCH_HOST = os.environ['ELASTICSEARCH_HOST']
+log.info(ELASTICSEARCH_HOST)
 
-args = {}
-if len(sys.argv) > 1:
-    for i in range(len(sys.argv)):
-        if i != 0:
-            item = sys.argv[i]
-            key_value_array = item.split('=')
-            key = key_value_array[0]
-            value = key_value_array[1]
-            args[key] = value
-
-
-
-indexCurator = IndexCurator()
-
-if threshold_time_in_seconds_arg in args:
-    threshold_time_in_seconds = args[threshold_time_in_seconds_arg]
-    for indices_pattern in indices_pattern_list:
-        indexCurator.delete_indices_by_creation_date(indices_pattern, threshold_time_in_seconds)
-else:
-    for indices_pattern in indices_pattern_list:
-        indexCurator.delete_indices_by_creation_date(indices_pattern)
+# args = {}
+# if len(sys.argv) > 1:
+#     for i in range(len(sys.argv)):
+#         if i != 0:
+#             item = sys.argv[i]
+#             key_value_array = item.split('=')
+#             key = key_value_array[0]
+#             value = key_value_array[1]
+#             args[key] = value
 
 
-if threshold_size_in_bytes_arg in args:
-    threshold_size_in_bytes = args[threshold_size_in_bytes_arg]
-    indexCurator.delete_indeces_by_size(threshold_size_in_bytes)
-else:
-    indexCurator.delete_indeces_by_size()
+
+# indexCurator = IndexCurator()
+
+# if threshold_time_in_seconds_arg in args:
+#     threshold_time_in_seconds = args[threshold_time_in_seconds_arg]
+#     for indices_pattern in indices_pattern_list:
+#         indexCurator.delete_indices_by_creation_date(indices_pattern, threshold_time_in_seconds)
+# else:
+#     for indices_pattern in indices_pattern_list:
+#         indexCurator.delete_indices_by_creation_date(indices_pattern)
+
+
+# if threshold_size_in_bytes_arg in args:
+#     threshold_size_in_bytes = args[threshold_size_in_bytes_arg]
+#     indexCurator.delete_indeces_by_size(threshold_size_in_bytes)
+# else:
+#     indexCurator.delete_indeces_by_size()
 
 
 # documentCurator = DocumentCurator()
