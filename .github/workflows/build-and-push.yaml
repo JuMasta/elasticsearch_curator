@@ -1,6 +1,7 @@
 name: curator build push
 
 on:
+  workflow_dispatch:
   create:
     tags:
       - v*
