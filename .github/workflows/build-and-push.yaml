@@ -30,8 +30,8 @@ jobs:
         uses: azure/login-action@v1
         with:
           login-server: 'bulatacr.azurecr.io'
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
